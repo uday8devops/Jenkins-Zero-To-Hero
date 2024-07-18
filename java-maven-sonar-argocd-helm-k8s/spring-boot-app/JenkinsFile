@@ -21,6 +21,7 @@ pipeline {
     }
     stage('Static Code Analysis') {
       environment {
+        // Change to your IP here [ex: AWS EC2 public IP]
         SONAR_URL = "http://13.233.70.226:9000"
       }
       steps {
@@ -31,6 +32,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
+        // change the "uday8devops" text to your DockerHub username [for proper image tagging before pushing to your docker-hub]
         DOCKER_IMAGE = "uday8devops/ultimate-cicd:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
@@ -48,6 +50,7 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
+            // change to your github repo username
             GIT_USER_NAME = "uday8devops"
         }
         steps {
